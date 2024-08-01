@@ -86,22 +86,25 @@ from webdriver_manager.core.os_manager import ChromeType
 
 @st.cache_resource
 def get_driver():
-    return webdriver.Chrome(
-        service=Service(
-            ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
-        ),
-        options=options,
-    )
-
     options = Options()
     options.add_argument("--disable-gpu")
     options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+
+    service = Service(
+        ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+    )
+
+    return webdriver.Chrome(service=service, options=options)
+
+
     
-    driver = get_driver()
-    driver.get("https://ipac.ecosphere.fws.gov/location/index")
-    driver.quit()
+    
 
 def run_selenium(shapefile_path):
+    driver = get_driver()
+    driver.get("https://ipac.ecosphere.fws.gov/location/index")   
     try:
        
 
