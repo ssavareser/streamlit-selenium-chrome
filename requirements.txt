@@ -4,4 +4,4 @@ webdriver-manager
 pandas
 xlwt
 Pillow
-base64
+
