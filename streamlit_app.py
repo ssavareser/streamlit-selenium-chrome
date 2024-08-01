@@ -81,11 +81,11 @@ def get_driver():
         options=options,
     )
 
-  options = Options()
-  options.add_argument("--disable-gpu")
-  options.add_argument("--headless")
+    options = Options()
+    options.add_argument("--disable-gpu")
+    options.add_argument("--headless")
+    
+    driver = get_driver()
+    driver.get("https://ipac.ecosphere.fws.gov/location/index")
   
-  driver = get_driver()
-  driver.get("https://ipac.ecosphere.fws.gov/location/index")
-
 
