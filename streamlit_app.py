@@ -104,12 +104,24 @@ def get_driver():
 
 def run_selenium(shapefile_path):
     driver = get_driver()
-    driver.get("https://ipac.ecosphere.fws.gov/location/index")   
+    
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            driver.get("https://ipac.ecosphere.fws.gov/location/index")
+            print("Page opened successfully")
+            break
+        except Exception as e:
+            print(f"Attempt {attempt + 1}/{max_retries} failed: {e}")
+            if attempt < max_retries - 1:
+                time.sleep(5)  # Wait for 5 seconds before retrying
+            else:
+                print("Max retries reached. Exiting.")
+                return
+    
     try:
-       
-
         # Wait for the "Upload shape file" button to be present
-        upload_button = WebDriverWait(driver, 10).until(
+        upload_button = WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, 'button[data-action-name="show-upload-shape-modal"]'))
         )
         print("Upload button found")
@@ -136,13 +148,12 @@ def run_selenium(shapefile_path):
         driver.execute_script("document.body.style.zoom='100%'")
         
         # Wait for the modal to appear
-        WebDriverWait(driver, 10).until(
+        WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.ID, 'shape-file-input'))
         )
         print("Upload modal opened")
-
         
-
+   
 
         # Retry finding the file input
         file_input_retries = 3
