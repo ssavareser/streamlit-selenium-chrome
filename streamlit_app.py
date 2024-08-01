@@ -109,14 +109,14 @@ def run_selenium(shapefile_path):
     for attempt in range(max_retries):
         try:
             driver.get("https://ipac.ecosphere.fws.gov/location/index")
-            print("Page opened successfully")
+            st.write("Page opened successfully")
             break
         except Exception as e:
-            print(f"Attempt {attempt + 1}/{max_retries} failed: {e}")
+            st.write(f"Attempt {attempt + 1}/{max_retries} failed: {e}")
             if attempt < max_retries - 1:
                 time.sleep(5)  # Wait for 5 seconds before retrying
             else:
-                print("Max retries reached. Exiting.")
+                st.write("Max retries reached. Exiting.")
                 return
     
     try:
