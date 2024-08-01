@@ -87,7 +87,7 @@ def get_driver():
     
     driver = get_driver()
     driver.get("https://ipac.ecosphere.fws.gov/location/index")
-     driver.quit()
+    driver.quit()
 
 def run_selenium(shapefile_path):
     try:
