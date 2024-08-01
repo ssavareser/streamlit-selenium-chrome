@@ -12,6 +12,7 @@ import io
 import base64
 import zipfile
 
+
 # Configure the page title, favicon, layout, etc
 st.set_page_config(page_title="Radia IPaC",
                    page_icon="radia-logo-large.png",
@@ -84,20 +85,21 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+
 @st.cache_resource
 def get_driver():
-    options = Options()
+    options = FirefoxOptions()
     options.add_argument("--disable-gpu")
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
 
-    service = Service(
-        ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
-    )
+    service = FirefoxService(GeckoDriverManager().install())
 
-    return webdriver.Chrome(service=service, options=options)
-
+    return webdriver.Firefox(service=service, options=options)
 
     
     
