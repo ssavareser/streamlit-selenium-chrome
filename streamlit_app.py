@@ -496,7 +496,6 @@ def _main():
             # Process the file if not already processed
             st.session_state.file_processed = uploaded_file_path
         # Run Selenium operations
-        get_driver()
         run_selenium(uploaded_file_path)    
 
     
